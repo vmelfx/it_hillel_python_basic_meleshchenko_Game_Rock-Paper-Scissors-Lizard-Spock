@@ -18,28 +18,30 @@ def rules():
 
 def user_input():
     while True:
-        print("Please, make your choice: rock, paper, scissors, lizard or Spock? To interrupt the game enter ")
+        print("Please, make your choice: rock, paper, scissors, lizard or Spock? To interrupt the game enter 'exit'")
         global user_choice
         user_choice = input("Your choice: ").lower()
         if user_choice in ["rock", "paper", "scissors", "lizard", "spock"]:
             return user_choice
+        elif user_choice == "exit":
+            raise SystemExit
         else:
-            print("Please make correct input.")
+            print(f'Invalid input "{user_choice}"')
 
 
 def program_choice():
-    choices_list = ["rock", "paper", "scissors", "lizard", "spock"]
+    choices_list = ["rock", "paper", "scissors", "lizard", "Spock"]
     global random_program_choice
     random_program_choice = random.choice(choices_list)
     print(f"Computer: {random_program_choice}")
 
 
 def winner_detector():
-    rock_list = ["paper", "spock", "rock", "scissors", "lizard"]
-    paper_list = ["scissors", "lizard", "paper", "spock", "rock"]
-    scissors_list = ["rock", "spock", "scissors", "paper", "lizard"]
-    lizard_list = ["rock", "scissors", "lizard", "paper", "spock"]
-    spock_list = ["paper", "lizard", "spock", "rock", "scissors"]
+    rock_list = ["paper", "Spock", "rock", "scissors", "lizard"]
+    paper_list = ["scissors", "lizard", "paper", "Spock", "rock"]
+    scissors_list = ["rock", "Spock", "scissors", "paper", "lizard"]
+    lizard_list = ["rock", "scissors", "lizard", "paper", "Spock"]
+    spock_list = ["paper", "lizard", "Spock", "rock", "scissors"]
 
     def sorter(element_list):
         index = 0
@@ -65,17 +67,24 @@ def winner_detector():
         print(sorter(spock_list))
 
 
+def menu():
+    play_again = input("Play again? (Y/N)").lower()
+    if play_again == "y":
+        return True
+    elif play_again == "n":
+        raise SystemExit
+    else:
+        print(f'Invalid input "{play_again}"')
+        menu()
+
+
 def main():
     while True:
         rules()
         user_input()
         program_choice()
         winner_detector()
-        play_again = input("Play again? (Y/N)").lower()
-        if play_again == "y":
-            continue
-        else:
-            break
+        menu()
 
 
 if __name__ == '__main__':
